@@ -3,8 +3,17 @@ package com.example.vietlottdatacrawl.asynctask;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.ScriptResult;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebRequest;
+import com.gargoylesoftware.htmlunit.html.Html;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -12,6 +21,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,13 +31,14 @@ public class ParseUrl extends AsyncTask<String, Void, String> {
     private final Context context;
     ProgressDialog progressDialog;
     private TextView textView;
+    private final String TAG = "DATA_CRAWLER";
 
     public ParseUrl(Context context, TextView textView) {
         this.context = context;
         this.textView = textView;
     }
 
-    public class Session {
+    public static class Session {
         Date date;
         String id;
 
@@ -48,30 +60,35 @@ public class ParseUrl extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        String url = strings[0];
-        StringBuffer result = new StringBuffer();
+        StringBuffer resultBuffer = new StringBuffer();
+        URL url = null;
+        try {
+            url = new URL("https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3d#00504");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
-        Session recentSessionInfo = getSessionInfo(url);
+        String userAgent = "connection.userAgent(Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30)\n";
+        WebRequest request = new WebRequest(url);
+        request.setAdditionalHeader("User-Agent",userAgent);
+        WebClient webClient = new WebClient(BrowserVersion.FIREFOX);
 
-        int currentMonth = recentSessionInfo.date.getMonth();
-        int currentID = Integer.valueOf(recentSessionInfo.id.substring(1));
+        webClient.getOptions().setThrowExceptionOnScriptError(false);
+        webClient.setJavaScriptTimeout(20000);
+        webClient.getOptions().setJavaScriptEnabled(true);
+        webClient.getOptions().setCssEnabled(true);
+        webClient.getOptions().setUseInsecureSSL(true);
 
-        int month = currentMonth;
-        int id = currentID;
-        do {
-            StringBuffer urlBuffer = new StringBuffer();
-            urlBuffer.append("https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3d");
-            urlBuffer.append("#00");
-            urlBuffer.append(currentID--);
-            Session session = getSessionInfo(urlBuffer.toString());
-            result.append("\nId: ");
-            result.append(session.id);
-            result.append("\nDate: ");
-            result.append(session.date.toString());
+        webClient.waitForBackgroundJavaScript(5000);
+        HtmlPage page = null;
+        try {
+            page = webClient.getPage(request);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String jsScript = "ClientDrawResult('00502');";
 
-            month = session.date.getMonth();
-
-        } while (month == currentMonth);
+        ScriptResult result = page.executeJavaScript(jsScript);
 
         return result.toString();
     }
@@ -85,6 +102,7 @@ public class ParseUrl extends AsyncTask<String, Void, String> {
 
             Element info = doc.getElementsByTag("h5").first();
             return stringToSessionInfo(info.text());
+
 
         } catch (IOException e) {
             e.printStackTrace();
