@@ -3,7 +3,6 @@ package com.example.vietlottdatacrawl.asynctask;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,13 +10,10 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.Date;
 
 public class ParseUrl extends AsyncTask<String, Void, String> {
@@ -28,6 +24,16 @@ public class ParseUrl extends AsyncTask<String, Void, String> {
     public ParseUrl(Context context, TextView textView) {
         this.context = context;
         this.textView = textView;
+    }
+
+    public class Session {
+        Date date;
+        String id;
+
+        public Session(Date date, String id) {
+            this.date = date;
+            this.id = id;
+        }
     }
 
     @Override
@@ -43,56 +49,63 @@ public class ParseUrl extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
         String url = strings[0];
-        StringBuffer stringBuffer = new StringBuffer();
-        String infoStr = getSessionInfo(url);
+        StringBuffer result = new StringBuffer();
 
-        int firstIndexOfId = infoStr.indexOf("#");
-        int lastIndexOfId = infoStr.indexOf(" ", firstIndexOfId);
-        String id = infoStr.substring(firstIndexOfId, lastIndexOfId);
+        Session recentSessionInfo = getSessionInfo(url);
 
-        int dateFirstIndex = infoStr.indexOf("ngày") + 5;
-        String date = infoStr.substring(dateFirstIndex);
+        int currentMonth = recentSessionInfo.date.getMonth();
+        int currentID = Integer.valueOf(recentSessionInfo.id.substring(1));
 
-        Date currentDate = new Date();
-        try {
-            currentDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        int currentMonth = currentDate.getMonth();
         int month = currentMonth;
-        int currentID = Integer.valueOf(id.substring(1));
-        while (month == currentMonth) {
-            StringBuffer urlBuilder = new StringBuffer();
-            urlBuilder.append("https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3d");
-            String idStr = Integer.toString(currentID--);
-            urlBuilder.append("#");
-            urlBuilder.append("  ");
-            urlBuilder.append(currentID);
+        int id = currentID;
+        do {
+            StringBuffer urlBuffer = new StringBuffer();
+            urlBuffer.append("https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3d");
+            urlBuffer.append("#00");
+            urlBuffer.append(currentID--);
+            Session session = getSessionInfo(urlBuffer.toString());
+            result.append("\nId: ");
+            result.append(session.id);
+            result.append("\nDate: ");
+            result.append(session.date.toString());
 
-            try {
-                getSessionInfo(urlBuilder.toString());
-            }
-        }
+            month = session.date.getMonth();
 
-        return stringBuffer.toString();
+        } while (month == currentMonth);
+
+        return result.toString();
     }
 
-    private String getSessionInfo(String url) {
+    private Session getSessionInfo(String url) {
         try {
             Connection connection = Jsoup.connect(url);
-            connection.userAgent("            connection.userAgent(Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30)\n");
+            connection.userAgent("connection.userAgent(Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30)\n");
             connection.timeout(50*1000);
             Document doc = connection.get();
 
             Element info = doc.getElementsByTag("h5").first();
-            return info.text();
+            return stringToSessionInfo(info.text());
 
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-        return "";
+    }
+
+    private Session stringToSessionInfo(String s) {
+        int firstIndexOfId = s.indexOf("#");
+        int lastIndexOfId = s.indexOf(" ", firstIndexOfId);
+        String id = s.substring(firstIndexOfId, lastIndexOfId);
+
+        int dateFirstIndex = s.indexOf("ngày") + 5;
+        String dateStr = s.substring(dateFirstIndex);
+        Date date = new Date();
+        try {
+            date = new SimpleDateFormat("dd/MM/yyyy").parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new Session(date,id);
     }
 
     @Override
