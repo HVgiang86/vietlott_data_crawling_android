@@ -6,14 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.ScriptResult;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebRequest;
-import com.gargoylesoftware.htmlunit.html.Html;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import android.widget.Toast;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -67,30 +60,7 @@ public class ParseUrl extends AsyncTask<String, Void, String> {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
-        String userAgent = "connection.userAgent(Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30)\n";
-        WebRequest request = new WebRequest(url);
-        request.setAdditionalHeader("User-Agent",userAgent);
-        WebClient webClient = new WebClient(BrowserVersion.FIREFOX);
-
-        webClient.getOptions().setThrowExceptionOnScriptError(false);
-        webClient.setJavaScriptTimeout(20000);
-        webClient.getOptions().setJavaScriptEnabled(true);
-        webClient.getOptions().setCssEnabled(true);
-        webClient.getOptions().setUseInsecureSSL(true);
-
-        webClient.waitForBackgroundJavaScript(5000);
-        HtmlPage page = null;
-        try {
-            page = webClient.getPage(request);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String jsScript = "ClientDrawResult('00502');";
-
-        ScriptResult result = page.executeJavaScript(jsScript);
-
-        return result.toString();
+        return resultBuffer.toString();
     }
 
     private Session getSessionInfo(String url) {
