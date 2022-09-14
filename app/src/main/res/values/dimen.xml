@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="prize_number_ball" type="dimen" format="integer">30dp</item>
+
+</resources>

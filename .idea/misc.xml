@@ -3,7 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/drawable/first_prize_background.xml" value="0.1565" />
+        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/drawable/second_prize_background.xml" value="0.1565" />
+        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/drawable/special_prize_background.xml" value="0.1565" />
+        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/drawable/third_prize_background.xml" value="0.1565" />
         <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
+        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/layout/activity_result.xml" value="0.18645833333333334" />
+        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/layout/first_prize_layout.xml" value="0.365625" />
+        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/layout/second_prize_layout.xml" value="0.365625" />
+        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/layout/session_item_layout.xml" value="0.21236559139784947" />
+        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/layout/special_prize_layout.xml" value="0.33" />
+        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/layout/third_prize_layout.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
