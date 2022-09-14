@@ -4,16 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.ScriptResult;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebRequest;
-import com.gargoylesoftware.htmlunit.html.Html;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -48,6 +44,31 @@ public class ParseUrl extends AsyncTask<String, Void, String> {
         }
     }
 
+    public static class HtmlHandler {
+        @JavascriptInterface
+        @SuppressWarnings("unused")
+        public Session handleHtml(String html) {
+            // scrape the content here
+            Document doc = new Document(html);
+            Element info = doc.getElementsByTag("h5").first();
+            String s = info.text();
+            int firstIndexOfId = s.indexOf("#");
+            int lastIndexOfId = s.indexOf(" ", firstIndexOfId);
+            String id = s.substring(firstIndexOfId, lastIndexOfId);
+
+            int dateFirstIndex = s.indexOf("ngày") + 5;
+            String dateStr = s.substring(dateFirstIndex);
+            Date date = new Date();
+            try {
+                date = new SimpleDateFormat("dd/MM/yyyy").parse(dateStr);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return new Session(date, id);
+        }
+    }
+
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -61,36 +82,20 @@ public class ParseUrl extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
         StringBuffer resultBuffer = new StringBuffer();
-        URL url = null;
-        try {
-            url = new URL("https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3d#00504");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
 
-        String userAgent = "connection.userAgent(Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30)\n";
-        WebRequest request = new WebRequest(url);
-        request.setAdditionalHeader("User-Agent",userAgent);
-        WebClient webClient = new WebClient(BrowserVersion.FIREFOX);
+        WebView mWebView = new WebView(context);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.addJavascriptInterface(new HtmlHandler(), "HtmlHandler");
 
-        webClient.getOptions().setThrowExceptionOnScriptError(false);
-        webClient.setJavaScriptTimeout(20000);
-        webClient.getOptions().setJavaScriptEnabled(true);
-        webClient.getOptions().setCssEnabled(true);
-        webClient.getOptions().setUseInsecureSSL(true);
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                mWebView.loadUrl("javascript:ClientDrawResult('00502');");
+            }
+        });
 
-        webClient.waitForBackgroundJavaScript(5000);
-        HtmlPage page = null;
-        try {
-            page = webClient.getPage(request);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String jsScript = "ClientDrawResult('00502');";
-
-        ScriptResult result = page.executeJavaScript(jsScript);
-
-        return result.toString();
+        return resultBuffer.toString();
     }
 
     private Session getSessionInfo(String url) {
