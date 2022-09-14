@@ -2,86 +2,67 @@ package com.example.vietlottdatacrawl.model;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class PrizeDrawSession {
-    private Date date;
-    private String id;
-    private String giaiDacBiet;
-    private String giaiNhat;
-    private String giaiNhi;
-    private String giaiBa;
+    private final Date date;
+    private final String id;
+    private final TripleNumberSet[] prizeList = new TripleNumberSet[20];
 
-    public PrizeDrawSession(Date date, String id) {
+    public PrizeDrawSession(Date date, String id, String prizeString) {
         this.date = date;
         this.id = id;
+        stringToNumberSet(prizeString);
     }
 
-    public PrizeDrawSession(Date date, String id, String giaiDacBiet, String giaiNhat, String giaiNhi, String giaiBa) {
-        this.date = date;
-        this.id = id;
-        this.giaiDacBiet = giaiDacBiet;
-        this.giaiNhat = giaiNhat;
-        this.giaiNhi = giaiNhi;
-        this.giaiBa = giaiBa;
+    private void stringToNumberSet(String s) {
+        int j = 0; int count  = 0;
+        byte number1 = 0, number2 = 0, number3;
+        for (int i = 0; i < s.length(); ++i) {
+            if (s.charAt(i) <= '9' && s.charAt(i) >= '0') {
+                byte number = (byte) (s.charAt(i) - '0');
+                count++;
+                if (count == 1)
+                    number1 = number;
+                if (count == 2)
+                    number2 = number;
+                if (count == 3) {
+                    number3 = number;
+                    TripleNumberSet set = new TripleNumberSet(number1, number2, number3);
+                    prizeList[j++] = set;
+                    count = 0;
+                }
+            }
+        }
     }
 
     public Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getGiaiDacBiet() {
-        return giaiDacBiet;
-    }
-
-    public void setGiaiDacBiet(String giaiDacBiet) {
-        this.giaiDacBiet = giaiDacBiet;
-    }
-
-    public String getGiaiNhat() {
-        return giaiNhat;
-    }
-
-    public void setGiaiNhat(String giaiNhat) {
-        this.giaiNhat = giaiNhat;
-    }
-
-    public String getGiaiNhi() {
-        return giaiNhi;
-    }
-
-    public void setGiaiNhi(String giaiNhi) {
-        this.giaiNhi = giaiNhi;
-    }
-
-    public String getGiaiBa() {
-        return giaiBa;
-    }
-
-    public void setGiaiBa(String giaiBa) {
-        this.giaiBa = giaiBa;
+    public TripleNumberSet[] getPrizeList() {
+        return prizeList;
     }
 
     @Override
     public String toString() {
-        return "ID: " + id +
-                " Date: " + DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(date)
-                + "\n" + giaiDacBiet
-                + "\n" + giaiNhat
-                + "\n" + giaiNhi
-                +"\n" + giaiBa;
-
-
+        StringBuilder builder = new StringBuilder();
+        builder.append("Session ");
+        builder.append("Date: ");
+        builder.append(DateFormat.getDateInstance(DateFormat.DATE_FIELD, Locale.US).format(date));
+        builder.append(", Id: ");
+        builder.append(id);
+        builder.append(", Prize number: ");
+        for (TripleNumberSet set : prizeList) {
+            builder.append(set.number1);
+            builder.append(set.number2);
+            builder.append(set.number3);
+            builder.append(" ");
+        }
+        return builder.toString();
     }
 }

@@ -17,74 +17,17 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:layout_marginTop="32dp"
         />
-    <TextView
-        android:id="@+id/url_input_edt_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/url_input_edit_text_label"
-        app:layout_constraintTop_toBottomOf="@id/crawl_data_tool_label"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-
-        />
-
-    <EditText
-        android:id="@+id/url_input_edt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/url_input_edt_label"
-        app:layout_constraintTop_toBottomOf="@id/url_input_edt_label"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginTop="8dp"
-        android:hint="@string/url_input_edit_text_label"
-        android:inputType="textUri"
-
-        />
 
     <Button
         android:id="@+id/crawl_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/crawl_button"
-        app:layout_constraintTop_toBottomOf="@id/url_input_edt"
+        app:layout_constraintTop_toBottomOf="@id/crawl_data_tool_label"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="32dp"
         />
-
-    <TextView
-        android:id="@+id/result_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/result_tv_label"
-        app:layout_constraintTop_toBottomOf="@id/crawl_button"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        />
-
-    <ScrollView
-        app:layout_constraintTop_toBottomOf="@id/result_label"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:fillViewport="true">
-        <TextView
-            android:id="@+id/result_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
