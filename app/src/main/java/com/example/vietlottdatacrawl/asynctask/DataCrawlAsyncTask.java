@@ -2,10 +2,13 @@ package com.example.vietlottdatacrawl.asynctask;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.example.vietlottdatacrawl.activity.ResultActivity;
 import com.example.vietlottdatacrawl.model.PrizeDrawSession;
+import com.example.vietlottdatacrawl.model.SessionManager;
 import com.example.vietlottdatacrawl.utilities.VietlottDataCrawler;
 
 import java.util.List;
@@ -38,7 +41,8 @@ public class DataCrawlAsyncTask extends AsyncTask<Void, Void, Void> {
         while (!isDataCrawled() && currentTime + MAX_PROGRESS_TIME >= System.currentTimeMillis()) {
             crawlData();
         }
-        isDataCrawled = true;
+
+        isDataCrawled = isDataCrawled();
         return null;
     }
 
@@ -56,8 +60,14 @@ public class DataCrawlAsyncTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void unused) {
         super.onPostExecute(unused);
         progressDialog.dismiss();
-        if (isDataCrawled)
+        if (isDataCrawled) {
             Toast.makeText(context, "Data Crawl Successfully!", Toast.LENGTH_SHORT).show();
+            SessionManager sessionManager = SessionManager.getInstance();
+            sessionManager.setSessionList(sessionList);
+            Intent intent = new Intent(context, ResultActivity.class);
+            context.startActivity(intent);
+        }
+
         else
             Toast.makeText(context, "Timeout,fail to crawl data!", Toast.LENGTH_SHORT).show();
     }

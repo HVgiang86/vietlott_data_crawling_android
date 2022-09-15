@@ -56,7 +56,14 @@ public class VietlottDataCrawler {
                         + URL_SUFFIX;
 
             PrizeDrawSession session = getSessionInfo(url);
-            month = session.getDate().getMonth();
+            int temp;
+            try {
+                temp = session.getDate().getMonth();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                return null;
+            }
+            month = temp;
 
             if (month == currentMonth) {
                 Log.d(TAG,session.toString());
