@@ -61,7 +61,7 @@ public class VietlottDataCrawler {
                 temp = session.getDate().getMonth();
             } catch (NullPointerException e) {
                 e.printStackTrace();
-                break;
+                return null;
             }
             month = temp;
 
