@@ -40,9 +40,9 @@ public class DataCrawlAsyncTask extends AsyncTask<Void, Void, Void> {
         long currentTime = System.currentTimeMillis();
         while (!isDataCrawled() && currentTime + MAX_PROGRESS_TIME >= System.currentTimeMillis()) {
             crawlData();
-            return null;
         }
-        isDataCrawled = true;
+
+        isDataCrawled = isDataCrawled();
         return null;
     }
 
