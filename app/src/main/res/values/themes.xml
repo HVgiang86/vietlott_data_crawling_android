@@ -1,4 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <!-- Base application theme. -->
     <style name="Theme.VietlottDataCrawl" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
@@ -6,5 +9,37 @@
         <item name="colorPrimaryDark">@color/purple_700</item>
         <item name="colorAccent">@color/teal_200</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="special_prize_number_text_view" parent="android:Widget.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/special_prize_background</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
+    </style>
+
+    <style name="first_prize_number_text_view" parent="android:Widget.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/first_prize_background</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
+    </style>
+
+    <style name="second_prize_number_text_view" parent="android:Widget.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/second_prize_background</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
+    </style>
+
+    <style name="third_prize_number_text_view" parent="android:Widget.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/third_prize_background</item>
+        <item name="android:textColor">@color/teal_200</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
     </style>
 </resources>

@@ -7,7 +7,7 @@ import java.util.Locale;
 public class PrizeDrawSession {
     private final Date date;
     private final String id;
-    private final TripleNumberSet[] prizeList = new TripleNumberSet[20];
+    private final Byte[] prizeNumber = new Byte[60];
 
     public PrizeDrawSession(Date date, String id, String prizeString) {
         this.date = date;
@@ -16,22 +16,10 @@ public class PrizeDrawSession {
     }
 
     private void stringToNumberSet(String s) {
-        int j = 0; int count  = 0;
-        byte number1 = 0, number2 = 0, number3;
+        int j = 0;
         for (int i = 0; i < s.length(); ++i) {
             if (s.charAt(i) <= '9' && s.charAt(i) >= '0') {
-                byte number = (byte) (s.charAt(i) - '0');
-                count++;
-                if (count == 1)
-                    number1 = number;
-                if (count == 2)
-                    number2 = number;
-                if (count == 3) {
-                    number3 = number;
-                    TripleNumberSet set = new TripleNumberSet(number1, number2, number3);
-                    prizeList[j++] = set;
-                    count = 0;
-                }
+                prizeNumber[j++] = (byte) (s.charAt(i) - '0');
             }
         }
     }
@@ -44,8 +32,8 @@ public class PrizeDrawSession {
         return id;
     }
 
-    public TripleNumberSet[] getPrizeList() {
-        return prizeList;
+    public Byte[] getPrizeNumber() {
+        return prizeNumber;
     }
 
     @Override
@@ -57,11 +45,11 @@ public class PrizeDrawSession {
         builder.append(", Id: ");
         builder.append(id);
         builder.append(", Prize number: ");
-        for (TripleNumberSet set : prizeList) {
-            builder.append(set.number1);
-            builder.append(set.number2);
-            builder.append(set.number3);
-            builder.append(" ");
+        for (int i = 1; i <= 60; ++i) {
+            builder.append(prizeNumber[i-1]);
+            if (i%3 == 0) {
+                builder.append(" ");
+            }
         }
         return builder.toString();
     }
