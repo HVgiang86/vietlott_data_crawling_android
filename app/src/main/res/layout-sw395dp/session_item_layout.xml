@@ -2,10 +2,9 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="4dp"
-    android:layout_marginEnd="4dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="16dp"
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
     android:paddingEnd="4dp"
@@ -161,37 +160,36 @@
             style="@style/first_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        <!--        Divider-->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/vertical_divider"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/black" />
 
         <TextView
             android:id="@+id/prize_number_13"
             style="@style/first_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_14"
             style="@style/first_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_15"
             style="@style/first_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <!--        Divider-->
         <View
@@ -206,21 +204,21 @@
             style="@style/first_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_17"
             style="@style/first_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_18"
             style="@style/first_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <!--    Second Prize-->
@@ -244,21 +242,21 @@
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_20"
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_21"
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <!--        Divider-->
         <View
@@ -273,21 +271,21 @@
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_23"
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_24"
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <!--        Divider-->
         <View
@@ -302,21 +300,21 @@
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_26"
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_27"
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -332,21 +330,21 @@
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_29"
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_30"
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <!--        Divider-->
         <View
@@ -361,21 +359,21 @@
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_32"
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_33"
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <!--        Divider-->
         <View
@@ -390,21 +388,21 @@
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_35"
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_36"
             style="@style/second_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -429,21 +427,21 @@
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_38"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_39"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <!--        Divider-->
         <View
@@ -458,21 +456,21 @@
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_41"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_42"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <!--        Divider-->
         <View
@@ -487,21 +485,49 @@
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_44"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_45"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
+        <!--        Divider-->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/vertical_divider"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/black" />
+
+        <TextView
+            android:id="@+id/prize_number_46"
+            style="@style/third_prize_number_text_view"
+            android:layout_width="@dimen/prize_number_ball"
+            android:layout_height="@dimen/prize_number_ball"
+             />
+
+        <TextView
+            android:id="@+id/prize_number_47"
+            style="@style/third_prize_number_text_view"
+            android:layout_width="@dimen/prize_number_ball"
+            android:layout_height="@dimen/prize_number_ball"
+             />
+
+        <TextView
+            android:id="@+id/prize_number_48"
+            style="@style/third_prize_number_text_view"
+            android:layout_width="@dimen/prize_number_ball"
+            android:layout_height="@dimen/prize_number_ball"
+             />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -513,54 +539,25 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/prize_number_46"
-            style="@style/third_prize_number_text_view"
-            android:layout_width="@dimen/prize_number_ball"
-            android:layout_height="@dimen/prize_number_ball"
-            />
-
-        <TextView
-            android:id="@+id/prize_number_47"
-            style="@style/third_prize_number_text_view"
-            android:layout_width="@dimen/prize_number_ball"
-            android:layout_height="@dimen/prize_number_ball"
-            />
-
-        <TextView
-            android:id="@+id/prize_number_48"
-            style="@style/third_prize_number_text_view"
-            android:layout_width="@dimen/prize_number_ball"
-            android:layout_height="@dimen/prize_number_ball"
-            />
-
-        <!--        Divider-->
-        <View
-            android:layout_width="1dp"
-            android:layout_height="@dimen/vertical_divider"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/black" />
-
-        <TextView
             android:id="@+id/prize_number_49"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_50"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_51"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <!--        Divider-->
         <View
@@ -575,51 +572,50 @@
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_53"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_54"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        <!--        Divider-->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/vertical_divider"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/black" />
 
         <TextView
             android:id="@+id/prize_number_55"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_56"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_57"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <!--        Divider-->
         <View
@@ -634,21 +630,21 @@
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_59"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
 
         <TextView
             android:id="@+id/prize_number_60"
             style="@style/third_prize_number_text_view"
             android:layout_width="@dimen/prize_number_ball"
             android:layout_height="@dimen/prize_number_ball"
-            />
+             />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 

@@ -8,4 +8,5 @@
     <string name="special_prize_label">Giải đặc biệt</string>
     <string name="first_prize_label">Giải nhất</string>
     <string name="second_prize_label">Giải nhì</string>
+    <string name="third_prize_label">Giải ba</string>
 </resources>
