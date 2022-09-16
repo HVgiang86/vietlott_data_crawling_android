@@ -49,10 +49,9 @@ public class VietlottDataCrawler {
 
         int id = recentId;
         int month = currentMonth;
-        while (month == currentMonth) {
+        while (id >= 1) {
             String url = URL_PREFIX
-                        + "00"
-                        + (id--)
+                        + intIdToStringId(id--)
                         + URL_SUFFIX;
 
             PrizeDrawSession session = getSessionInfo(url);
@@ -65,10 +64,9 @@ public class VietlottDataCrawler {
             }
             month = temp;
 
-            if (month == currentMonth) {
-                Log.d(TAG,session.toString());
-                sessionList.add(session);
-            }
+            Log.d(TAG,session.toString());
+            sessionList.add(session);
+
         }
 
         return sessionList;
@@ -119,4 +117,12 @@ public class VietlottDataCrawler {
         return session;
     }
 
+    private String intIdToStringId(int id) {
+        StringBuilder builder = new StringBuilder();
+        int numberOfDigits = (int) Math.log10((double) id) + 1;
+        for (int i = 0; i < 5-numberOfDigits; ++i)
+            builder.append("0");
+        builder.append(id);
+        return builder.toString();
+    }
 }

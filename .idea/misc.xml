@@ -3,8 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Project/vietlott_data_crawling_android/app/src/main/res/drawable/second_prize_background.xml" value="0.236" />
+        <entry key="..\:/Project/vietlott_data_crawling_android/app/src/main/res/drawable/special_prize_background.xml" value="0.236" />
+        <entry key="..\:/Project/vietlott_data_crawling_android/app/src/main/res/drawable/view_holder_background.xml" value="0.2285" />
+        <entry key="..\:/Project/vietlott_data_crawling_android/app/src/main/res/layout-anydpi/session_item_layout.xml" value="0.25" />
+        <entry key="..\:/Project/vietlott_data_crawling_android/app/src/main/res/layout-hdpi/session_item_layout.xml" value="0.44" />
+        <entry key="..\:/Project/vietlott_data_crawling_android/app/src/main/res/layout-nodpi/session_item_layout.xml" value="0.86875" />
+        <entry key="..\:/Project/vietlott_data_crawling_android/app/src/main/res/layout-sw360dp/session_item_layout.xml" value="0.86875" />
+        <entry key="..\:/Project/vietlott_data_crawling_android/app/src/main/res/layout-xhdpi/session_item_layout.xml" value="0.44" />
+        <entry key="..\:/Project/vietlott_data_crawling_android/app/src/main/res/layout-xxhdpi/session_item_layout.xml" value="0.2" />
+        <entry key="..\:/Project/vietlott_data_crawling_android/app/src/main/res/layout-xxxhdpi/session_item_layout.xml" value="0.4069086651053864" />
+        <entry key="..\:/Project/vietlott_data_crawling_android/app/src/main/res/layout/session_item_layout.xml" value="0.28462603878116344" />
         <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/drawable/first_prize_background.xml" value="0.1565" />
-        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/drawable/ic_launcher_background.xml" value="0.246" />
         <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/drawable/second_prize_background.xml" value="0.1565" />
         <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/drawable/special_prize_background.xml" value="0.1565" />
         <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/drawable/third_prize_background.xml" value="0.1565" />
@@ -12,11 +22,9 @@
         <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/layout/activity_result.xml" value="0.18645833333333334" />
         <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/layout/first_prize_layout.xml" value="0.365625" />
         <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/layout/second_prize_layout.xml" value="0.365625" />
-        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/layout/session_item_layout.xml" value="0.33" />
+        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/layout/session_item_layout.xml" value="0.21236559139784947" />
         <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/layout/special_prize_layout.xml" value="0.33" />
         <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/layout/third_prize_layout.xml" value="0.36666666666666664" />
-        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1955" />
-        <entry key="..\:/Work/VietlottDataCrawl/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1955" />
       </map>
     </option>
   </component>
