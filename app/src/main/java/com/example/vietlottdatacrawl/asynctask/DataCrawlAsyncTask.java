@@ -2,11 +2,9 @@ package com.example.vietlottdatacrawl.asynctask;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.example.vietlottdatacrawl.activity.ResultActivity;
 import com.example.vietlottdatacrawl.model.PrizeDrawSession;
 import com.example.vietlottdatacrawl.model.SessionManager;
 import com.example.vietlottdatacrawl.utilities.VietlottDataCrawler;
@@ -36,9 +34,7 @@ public class DataCrawlAsyncTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        long MAX_PROGRESS_TIME = 50*1000;
-        long currentTime = System.currentTimeMillis();
-        while (!isDataCrawled() && currentTime + MAX_PROGRESS_TIME >= System.currentTimeMillis()) {
+        while (!isDataCrawled()) {
             crawlData();
         }
 
@@ -52,7 +48,7 @@ public class DataCrawlAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private void crawlData() {
         VietlottDataCrawler crawler = VietlottDataCrawler.getInstance();
-        sessionList = crawler.getSessionList();
+        sessionList = crawler.getSessionList(context);
     }
 
 
@@ -64,12 +60,10 @@ public class DataCrawlAsyncTask extends AsyncTask<Void, Void, Void> {
             Toast.makeText(context, "Data Crawl Successfully!", Toast.LENGTH_SHORT).show();
             SessionManager sessionManager = SessionManager.getInstance();
             sessionManager.setSessionList(sessionList);
-            Intent intent = new Intent(context, ResultActivity.class);
-            context.startActivity(intent);
         }
 
         else
-            Toast.makeText(context, "Timeout,fail to crawl data!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Fail to crawl data!", Toast.LENGTH_SHORT).show();
     }
 
 

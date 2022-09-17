@@ -26,4 +26,8 @@ public class SessionManager {
     public void setSessionList(List<PrizeDrawSession> sessionList) {
         this.sessionList = sessionList;
     }
+
+    public int getSessionIndex(PrizeDrawSession session) {
+        return sessionList.indexOf(session);
+    }
 }
