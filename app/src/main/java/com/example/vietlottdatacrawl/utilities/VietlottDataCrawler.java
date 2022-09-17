@@ -1,5 +1,6 @@
 package com.example.vietlottdatacrawl.utilities;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.vietlottdatacrawl.model.PrizeDrawSession;
@@ -37,7 +38,7 @@ public class VietlottDataCrawler {
         return INSTANCE;
     }
 
-    public List<PrizeDrawSession> getSessionList() {
+    public List<PrizeDrawSession> getSessionList(Context context) {
         sessionList.clear();
         PrizeDrawSession recentSession = getSessionInfo(INITIAL_URL);
 
@@ -47,28 +48,31 @@ public class VietlottDataCrawler {
         int recentId = Integer.parseInt(recentSession.getId());
         int currentMonth = recentSession.getDate().getMonth();
 
+        JsonHelper jsonHelper = new JsonHelper(context);
         int id = recentId;
-        int month = currentMonth;
-        while (id >= 1) {
+
+        String recentIdSavedStr = jsonHelper.readRecentIdFromJsonFile();
+        int recentIdSaved;
+        if (recentIdSavedStr == null) {
+            recentIdSaved = 0;
+        }
+        else
+            recentIdSaved = Integer.parseInt(recentIdSavedStr);
+
+        sessionList = jsonHelper.readSessionListFromJsonFile();
+
+        while (id > recentIdSaved) {
             String url = URL_PREFIX
                         + intIdToStringId(id--)
                         + URL_SUFFIX;
 
             PrizeDrawSession session = getSessionInfo(url);
-            int temp;
-            try {
-                temp = session.getDate().getMonth();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-                return null;
-            }
-            month = temp;
 
             Log.d(TAG,session.toString());
             sessionList.add(session);
-
         }
 
+        jsonHelper.updateJsonFile(sessionList);
         return sessionList;
     }
 

@@ -21,6 +21,9 @@ public class Max3DResultAdapter extends RecyclerView.Adapter<Max3DResultAdapter.
     private final List<PrizeDrawSession>  sessionList = SessionManager.getInstance().getSessionList();
     private final Context context;
     private final int[] textViewIdArray = new int[60];
+    private static final int RESULT_FOUND_VIEW_TYPE = 10;
+    private static final int RESULT_NOT_FOUND_VIEW_TYPE = 11;
+    private static final int INTERNET_NOT_FOUND_VIEW_TYPE = 12;
 
     public Max3DResultAdapter(Context context) {
         this.context = context;
@@ -33,35 +36,51 @@ public class Max3DResultAdapter extends RecyclerView.Adapter<Max3DResultAdapter.
             super(itemView);
             this.view = itemView;
         }
-
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflater.inflate(R.layout.session_item_layout,parent,false);
+        View v;
+        if (viewType == RESULT_NOT_FOUND_VIEW_TYPE)
+            v = inflater.inflate(R.layout.result_not_found_layout,parent,false);
+        else
+             v = inflater.inflate(R.layout.session_item_layout,parent,false);
+
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PrizeDrawSession session = sessionList.get(position);
-        Byte[] prizeNumber = session.getPrizeNumber();
-        for (int i = 1; i <= 60; ++i) {
-            int id = getTextViewId(i);
-            TextView textView = holder.view.findViewById(id);
-            textView.setText(prizeNumber[i-1].toString());
-        }
-        TextView dateTextView = holder.view.findViewById(R.id.session_date);
-        TextView idTextView = holder.view.findViewById(R.id.session_id);
+        if (getItemViewType(position) != RESULT_NOT_FOUND_VIEW_TYPE) {
+            PrizeDrawSession session = sessionList.get(position);
+            Byte[] prizeNumber = session.getPrizeNumber();
+            for (int i = 1; i <= 60; ++i) {
+                int id = getTextViewId(i);
+                TextView textView = holder.view.findViewById(id);
+                textView.setText(prizeNumber[i-1].toString());
+            }
+            TextView dateTextView = holder.view.findViewById(R.id.session_date);
+            TextView idTextView = holder.view.findViewById(R.id.session_id);
 
-        dateTextView.setText(DateFormat.getDateInstance(DateFormat.DATE_FIELD, Locale.US).format(session.getDate()));
-        idTextView.setText("Kỳ quay số:#" + session.getId());
+            dateTextView.setText(DateFormat.getDateInstance(DateFormat.DATE_FIELD, Locale.US).format(session.getDate()));
+            idTextView.setText("Kỳ quay số:#" + session.getId());
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (sessionList.size() == 0)  {
+            return RESULT_NOT_FOUND_VIEW_TYPE;
+        }
+        return RESULT_FOUND_VIEW_TYPE;
     }
 
     @Override
     public int getItemCount() {
+        if (sessionList.size() == 0)
+            return 1;
         return sessionList.size();
     }
 

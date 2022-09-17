@@ -36,6 +36,14 @@ public class PrizeDrawSession {
         return prizeNumber;
     }
 
+    public String getPrizeNumberString() {
+        String number = "";
+        for (int i = 0; i < 60; i++) {
+            number += prizeNumber[i];
+        }
+        return number;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
