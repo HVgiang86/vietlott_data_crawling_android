@@ -21,6 +21,7 @@ public class JsonDataHelper {
     public static final String ID_TAG = "id";
     public static final String DATE_TAG = "date";
     public static final String PRIZE_NUMBER_TAG = "number";
+    private final String TAG = "DATA_CRAWLER";
 
     private final Context context;
     private String jsonString;
@@ -30,11 +31,16 @@ public class JsonDataHelper {
     }
 
     public void updateJsonData(List<PrizeDrawSession> sessionList) {
-        String recentId = sessionList.get(0).getId();
-        if (!recentId.equals(getRecentIdFromFile())) {
-            writeSessionListToJsonFile(sessionList);
+        if (!(sessionList == null ||sessionList.size() == 0)) {
+            String recentId = sessionList.get(0).getId();
+            String recentIdFromFile = getRecentIdFromFile();
+            if (recentIdFromFile == null || recentIdFromFile.length() == 0) {
+                writeSessionListToJsonFile(sessionList);
+            }
+            if (!recentId.equals(getRecentIdFromFile())) {
+                writeSessionListToJsonFile(sessionList);
+            }
         }
-
     }
 
     public String convertSessionListToJsonString(List<PrizeDrawSession> sessionList) {
@@ -62,7 +68,13 @@ public class JsonDataHelper {
         }catch (JSONException e) {
             e.printStackTrace();
         }
-        return jsonRoot.toString();
+        String jsonString = "";
+        try {
+            jsonString = jsonRoot.toString(4);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonString;
     }
 
     public void readData() {
@@ -81,8 +93,9 @@ public class JsonDataHelper {
     }
 
     public String getRecentIdFromFile() {
-        String id = "";
+        String id = null;
         try {
+            readData();
             JSONObject jsonRoot = new JSONObject(jsonString);
             id = jsonRoot.getString(RECENT_ID_TAG);
         } catch (JSONException e) {
@@ -94,6 +107,7 @@ public class JsonDataHelper {
     public List<PrizeDrawSession> getSessionListFromFile() {
         List<PrizeDrawSession> sessionList = new ArrayList<>();
         try {
+            readData();
             JSONObject jsonRoot = new JSONObject(jsonString);
             String jsonArrayString = jsonRoot.getString(SESSION_TAG);
             JSONArray jsonArray = new JSONArray(jsonArrayString);

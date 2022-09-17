@@ -39,28 +39,32 @@ public class VietlottDataCrawler {
     }
 
     public List<PrizeDrawSession> getSessionList(Context context) {
+        Log.d(TAG,"BEGIN CRAWL");
         sessionList.clear();
         PrizeDrawSession recentSession = getSessionInfo(INITIAL_URL);
+        Log.d(TAG,"RECENT SESSION INFO: " + recentSession.toString());
 
         if (recentSession == null) {
             return null;
         }
         int recentId = Integer.parseInt(recentSession.getId());
-        int currentMonth = recentSession.getDate().getMonth();
-
-        JsonHelper jsonHelper = new JsonHelper(context);
-        int id = recentId;
-
-        String recentIdSavedStr = jsonHelper.readRecentIdFromJsonFile();
         int recentIdSaved;
+
+        JsonDataHelper jsonHelper = new JsonDataHelper(context);
+        String recentIdSavedStr = jsonHelper.getRecentIdFromFile();
+
         if (recentIdSavedStr == null) {
             recentIdSaved = 0;
         }
         else
             recentIdSaved = Integer.parseInt(recentIdSavedStr);
 
-        sessionList = jsonHelper.readSessionListFromJsonFile();
+        Log.d(TAG,"RECENT SESSION ID SAVED: " +recentIdSaved);
+        Log.d(TAG,"RECENT SESSION ID ON WEB: " +recentId);
 
+        sessionList = jsonHelper.getSessionListFromFile();
+
+        int id = recentId;
         while (id > recentIdSaved) {
             String url = URL_PREFIX
                         + intIdToStringId(id--)
@@ -72,7 +76,7 @@ public class VietlottDataCrawler {
             sessionList.add(session);
         }
 
-        jsonHelper.updateJsonFile(sessionList);
+        jsonHelper.updateJsonData(sessionList);
         return sessionList;
     }
 

@@ -29,14 +29,17 @@ public class DataFileManager {
 
     public static String readJsonStringFromFile(Context context) {
         File jsonFile = new File(context.getFilesDir() + "/result.json");
+        Log.d("File Management Helper", "File Path: " + jsonFile.getPath());
         String result = "";
 
         if (!jsonFile.exists()) {
             initDataJsonFile(context);
         }
 
-        try {
 
+
+
+        try {
             FileInputStream fis = context.openFileInput(filename);
             InputStreamReader inputStreamReader =
                     new InputStreamReader(fis, "UTF-8");

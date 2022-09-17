@@ -1,6 +1,7 @@
 package com.example.vietlottdatacrawl.model;
 
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -26,6 +27,22 @@ public class PrizeDrawSession {
 
     public Date getDate() {
         return date;
+    }
+
+    public String getDateString() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(calendar.get(Calendar.DATE));
+        builder.append("/");
+        int month = calendar.get(Calendar.MONTH);
+        //month = (month == 0) ? 12 : month;
+        month++;
+        builder.append(month);
+        builder.append("/");
+        builder.append(calendar.get(Calendar.YEAR));
+        return builder.toString();
     }
 
     public String getId() {

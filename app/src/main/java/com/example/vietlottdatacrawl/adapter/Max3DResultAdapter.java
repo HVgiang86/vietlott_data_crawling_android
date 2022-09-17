@@ -1,6 +1,7 @@
 package com.example.vietlottdatacrawl.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,21 +12,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vietlottdatacrawl.R;
 import com.example.vietlottdatacrawl.model.PrizeDrawSession;
-import com.example.vietlottdatacrawl.model.SessionManager;
 
-import java.text.DateFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class Max3DResultAdapter extends RecyclerView.Adapter<Max3DResultAdapter.ViewHolder> {
-    private final List<PrizeDrawSession>  sessionList = SessionManager.getInstance().getSessionList();
+    private List<PrizeDrawSession>  sessionList;
     private final Context context;
     private final int[] textViewIdArray = new int[60];
     private static final int RESULT_FOUND_VIEW_TYPE = 10;
     private static final int RESULT_NOT_FOUND_VIEW_TYPE = 11;
-    private static final int INTERNET_NOT_FOUND_VIEW_TYPE = 12;
 
     public Max3DResultAdapter(Context context) {
+        this.context = context;
+        convertTextViewIdToIdArray();
+    }
+
+    public void setSessionList(List<PrizeDrawSession> sessionList) {
+        this.sessionList = sessionList;
+    }
+
+    public Max3DResultAdapter(List<PrizeDrawSession> sessionList, Context context) {
+        this.sessionList = sessionList;
         this.context = context;
         convertTextViewIdToIdArray();
     }
@@ -56,16 +63,17 @@ public class Max3DResultAdapter extends RecyclerView.Adapter<Max3DResultAdapter.
         if (getItemViewType(position) != RESULT_NOT_FOUND_VIEW_TYPE) {
             PrizeDrawSession session = sessionList.get(position);
             Byte[] prizeNumber = session.getPrizeNumber();
+            TextView dateTextView = holder.view.findViewById(R.id.session_date);
+            TextView idTextView = holder.view.findViewById(R.id.session_id);
+
+            dateTextView.setText(session.getDateString());
+            String drawSessionId = "Kỳ quay số: #" + session.getId();
+            idTextView.setText(drawSessionId);
             for (int i = 1; i <= 60; ++i) {
                 int id = getTextViewId(i);
                 TextView textView = holder.view.findViewById(id);
                 textView.setText(prizeNumber[i-1].toString());
             }
-            TextView dateTextView = holder.view.findViewById(R.id.session_date);
-            TextView idTextView = holder.view.findViewById(R.id.session_id);
-
-            dateTextView.setText(DateFormat.getDateInstance(DateFormat.DATE_FIELD, Locale.US).format(session.getDate()));
-            idTextView.setText("Kỳ quay số:#" + session.getId());
         }
     }
 

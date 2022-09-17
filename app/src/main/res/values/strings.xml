@@ -9,4 +9,6 @@
     <string name="first_prize_label">Giải nhất</string>
     <string name="second_prize_label">Giải nhì</string>
     <string name="third_prize_label">Giải ba</string>
+    <string name="month_picker_label">Chọn tháng</string>
+    <string name="no_internet_connection_notification">Không có kết nối Internet, bạn sẽ không thể nhận kết quả mới nhất!</string>
 </resources>
