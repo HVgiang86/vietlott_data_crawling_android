@@ -30,7 +30,7 @@ public class JsonDataHelper {
     }
 
     public void updateJsonData(List<PrizeDrawSession> sessionList) {
-        if (!(sessionList == null ||sessionList.size() == 0)) {
+        if (!(sessionList == null || sessionList.size() == 0)) {
             String recentId = sessionList.get(0).getId();
             String recentIdFromFile = getRecentIdFromFile();
             if (recentIdFromFile == null || recentIdFromFile.length() == 0) {
@@ -46,25 +46,25 @@ public class JsonDataHelper {
         JSONObject jsonRoot = new JSONObject();
         try {
             String recentId = sessionList.get(0).getId();
-            jsonRoot.put(RECENT_ID_TAG,recentId);
+            jsonRoot.put(RECENT_ID_TAG, recentId);
             JSONArray jsonArray = new JSONArray();
 
             for (PrizeDrawSession session : sessionList) {
                 String id = session.getId();
                 String dateStr = DateFormat.getDateInstance(DateFormat.DATE_FIELD, Locale.US)
-                                            .format(session.getDate());
+                        .format(session.getDate());
                 String prizeNumberStr = session.getPrizeNumberString();
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put(ID_TAG,id);
-                jsonObject.put(DATE_TAG,dateStr);
-                jsonObject.put(PRIZE_NUMBER_TAG,prizeNumberStr);
+                jsonObject.put(ID_TAG, id);
+                jsonObject.put(DATE_TAG, dateStr);
+                jsonObject.put(PRIZE_NUMBER_TAG, prizeNumberStr);
 
                 jsonArray.put(jsonObject);
             }
 
-            jsonRoot.put(SESSION_TAG,jsonArray.toString());
+            jsonRoot.put(SESSION_TAG, jsonArray.toString());
 
-        }catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         String jsonString = "";
@@ -124,7 +124,7 @@ public class JsonDataHelper {
                 }
 
                 if (date != null) {
-                    PrizeDrawSession session = new PrizeDrawSession(date,id,prizeNumberStr);
+                    PrizeDrawSession session = new PrizeDrawSession(date, id, prizeNumberStr);
                     sessionList.add(session);
                 }
             }

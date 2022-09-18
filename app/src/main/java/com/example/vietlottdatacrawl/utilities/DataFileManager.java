@@ -21,7 +21,7 @@ public class DataFileManager {
 
     public static void writeJsonStringToFile(String jsonString, Context context) {
         try {
-            OutputStreamWriter writer = new OutputStreamWriter(context.openFileOutput(filename,Context.MODE_PRIVATE));
+            OutputStreamWriter writer = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
             writer.write(jsonString);
             writer.close();
         } catch (IOException e) {
@@ -37,9 +37,6 @@ public class DataFileManager {
         if (!jsonFile.exists()) {
             initDataJsonFile(context);
         }
-
-
-
 
         try {
             FileInputStream fis = context.openFileInput(filename);
@@ -94,10 +91,9 @@ public class DataFileManager {
                 File outFile = new File(context.getFilesDir(), filename);
                 out = new FileOutputStream(outFile);
                 copyFile(in, out);
-            } catch(IOException e) {
+            } catch (IOException e) {
                 Log.e("Data File Manager", "Failed to copy asset file: " + filename, e);
-            }
-            finally {
+            } finally {
                 if (in != null) {
                     try {
                         in.close();
@@ -119,10 +115,9 @@ public class DataFileManager {
     private static void copyFile(InputStream in, OutputStream out) throws IOException {
         byte[] buffer = new byte[1024];
         int read;
-        while((read = in.read(buffer)) != -1){
+        while ((read = in.read(buffer)) != -1) {
             out.write(buffer, 0, read);
         }
     }
-
 
 }

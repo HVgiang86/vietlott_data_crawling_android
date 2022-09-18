@@ -40,56 +40,69 @@ public class VietlottDataCrawler {
 
     public List<PrizeDrawSession> getSessionList(Context context) {
         long recentTime = System.currentTimeMillis();
-        final long MAX_LOADING_TIME = 60*1000;
+        final long MAX_LOADING_TIME = 60 * 1000;
 
-        Log.d(TAG,"BEGIN CRAWL");
+        Log.d(TAG, "BEGIN CRAWL");
         sessionList.clear();
+
+        //get recent session on web
         PrizeDrawSession recentSession = getSessionInfo(INITIAL_URL);
+
+        //if cant get recent session information from internet, finish data crawling and return null
         if (recentSession == null) {
             return null;
         }
-        Log.d(TAG,"RECENT SESSION INFO: " + recentSession);
+
+        Log.d(TAG, "RECENT SESSION INFO: " + recentSession);
         int recentId = Integer.parseInt(recentSession.getId());
-        int recentIdSaved;
 
         JsonDataHelper jsonHelper = new JsonDataHelper(context);
         String recentIdSavedStr = jsonHelper.getRecentIdFromFile();
-
+        int recentIdSaved;
         if (recentIdSavedStr == null) {
             recentIdSaved = 0;
-        }
-        else
+        } else
             recentIdSaved = Integer.parseInt(recentIdSavedStr);
 
-        Log.d(TAG,"RECENT SESSION ID SAVED: " +recentIdSaved);
-        Log.d(TAG,"RECENT SESSION ID ON WEB: " +recentId);
+        Log.d(TAG, "RECENT SESSION ID SAVED: " + recentIdSaved);
+        Log.d(TAG, "RECENT SESSION ID ON WEB: " + recentId);
 
         sessionList = jsonHelper.getSessionListFromFile();
 
         int id = recentId;
+        //if it's available to loading data from local file (exist new session not saved in local file)
+        if (id == recentIdSaved) {
+            Log.d(TAG, "Do not need to update!");
+            return sessionList;
+        }
+
+        List<PrizeDrawSession> newSessionList = new ArrayList<>();
         while (id > recentIdSaved && System.currentTimeMillis() < recentTime + MAX_LOADING_TIME) {
             String url = URL_PREFIX
-                        + intIdToStringId(id--)
-                        + URL_SUFFIX;
+                    + intIdToStringId(id--)
+                    + URL_SUFFIX;
 
             PrizeDrawSession session = getSessionInfo(url);
 
             if (session != null) {
-                Log.d(TAG,session.toString());
-                sessionList.add(session);
+                Log.d(TAG, session.toString());
+                newSessionList.add(session);
             }
         }
 
+        newSessionList.addAll(sessionList);
         jsonHelper.updateJsonData(sessionList);
-        return sessionList;
+        Log.d(TAG, "updated list!");
+        return newSessionList;
     }
 
     private PrizeDrawSession getSessionInfo(String url) {
+        //Use JSOUP to parse html document got from internet
         try {
             Log.d(TAG, "URL: " + url);
             Connection connection = Jsoup.connect(url);
             connection.userAgent(USER_AGENT_STRING);
-            connection.timeout(20*1000);
+            connection.timeout(20 * 1000);
             Document doc = connection.get();
 
             Element info = doc.getElementsByTag("h5").first();
@@ -98,12 +111,12 @@ public class VietlottDataCrawler {
             Element prize = doc.getElementsByTag("tbody").first();
             Elements elements = prize.getElementsByTag("tr");
 
-            for (int i = 0; i<4; ++i) {
+            for (int i = 0; i < 4; ++i) {
                 Elements collection = elements.get(i).getElementsByTag("td");
                 prizeString.append(collection.get(1).text());
             }
 
-            return stringToSessionInfo(info.text(),prizeString.toString());
+            return stringToSessionInfo(info.text(), prizeString.toString());
 
 
         } catch (IOException e) {
@@ -115,7 +128,7 @@ public class VietlottDataCrawler {
     private PrizeDrawSession stringToSessionInfo(String info, String prize) {
         int firstIndexOfId = info.indexOf("#");
         int lastIndexOfId = info.indexOf(" ", firstIndexOfId);
-        String id = info.substring(firstIndexOfId+1, lastIndexOfId);
+        String id = info.substring(firstIndexOfId + 1, lastIndexOfId);
 
         int dateFirstIndex = info.indexOf("ngày") + 5;
         String dateStr = info.substring(dateFirstIndex);
@@ -125,13 +138,13 @@ public class VietlottDataCrawler {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return new PrizeDrawSession(date,id,prize);
+        return new PrizeDrawSession(date, id, prize);
     }
 
     private String intIdToStringId(int id) {
         StringBuilder builder = new StringBuilder();
-        int numberOfDigits = (int) Math.log10((double) id) + 1;
-        for (int i = 0; i < 5-numberOfDigits; ++i)
+        int numberOfDigits = (int) Math.log10(id) + 1;
+        for (int i = 0; i < 5 - numberOfDigits; ++i)
             builder.append("0");
         builder.append(id);
         return builder.toString();

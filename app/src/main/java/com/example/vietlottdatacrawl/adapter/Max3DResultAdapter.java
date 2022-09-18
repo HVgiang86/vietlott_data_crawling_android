@@ -16,13 +16,17 @@ import java.util.List;
 import java.util.Locale;
 
 public class Max3DResultAdapter extends RecyclerView.Adapter<Max3DResultAdapter.ViewHolder> {
-    private List<PrizeDrawSession>  sessionList;
-    private final Context context;
-    private final int[] textViewIdArray = new int[60];
+    //Final Variable
     private static final int RESULT_FOUND_VIEW_TYPE = 10;
     private static final int RESULT_NOT_FOUND_VIEW_TYPE = 11;
+    private final Context context;
+    private final int[] textViewIdArray = new int[60];
 
-    public Max3DResultAdapter(Context context) {
+    //Item List Dataset
+    private List<PrizeDrawSession> sessionList;
+
+    public Max3DResultAdapter(List<PrizeDrawSession> sessionList, Context context) {
+        this.sessionList = sessionList;
         this.context = context;
         convertTextViewIdToIdArray();
     }
@@ -31,14 +35,9 @@ public class Max3DResultAdapter extends RecyclerView.Adapter<Max3DResultAdapter.
         this.sessionList = sessionList;
     }
 
-    public Max3DResultAdapter(List<PrizeDrawSession> sessionList, Context context) {
-        this.sessionList = sessionList;
-        this.context = context;
-        convertTextViewIdToIdArray();
-    }
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.view = itemView;
@@ -51,9 +50,9 @@ public class Max3DResultAdapter extends RecyclerView.Adapter<Max3DResultAdapter.
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v;
         if (viewType == RESULT_NOT_FOUND_VIEW_TYPE)
-            v = inflater.inflate(R.layout.result_not_found_layout,parent,false);
+            v = inflater.inflate(R.layout.result_not_found_layout, parent, false);
         else
-             v = inflater.inflate(R.layout.session_item_layout,parent,false);
+            v = inflater.inflate(R.layout.session_item_layout, parent, false);
 
         return new ViewHolder(v);
     }
@@ -62,17 +61,21 @@ public class Max3DResultAdapter extends RecyclerView.Adapter<Max3DResultAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (getItemViewType(position) != RESULT_NOT_FOUND_VIEW_TYPE) {
             PrizeDrawSession session = sessionList.get(position);
-            Byte[] prizeNumber = session.getPrizeNumber();
+
             TextView dateTextView = holder.view.findViewById(R.id.session_date);
             TextView idTextView = holder.view.findViewById(R.id.session_id);
 
+            //set text view content for id and date
             dateTextView.setText(session.getDateString());
             String drawSessionId = "Kỳ quay số: #" + session.getId();
             idTextView.setText(drawSessionId);
+            
+            //set content for each prize number ball
+            Byte[] prizeNumber = session.getPrizeNumber();
             for (int i = 1; i <= 60; ++i) {
                 int id = getTextViewId(i);
                 TextView textView = holder.view.findViewById(id);
-                String numberString = String.format(Locale.US,"%d",prizeNumber[i-1]);
+                String numberString = String.format(Locale.US, "%d", prizeNumber[i - 1]);
                 textView.setText(numberString);
             }
         }
@@ -80,7 +83,7 @@ public class Max3DResultAdapter extends RecyclerView.Adapter<Max3DResultAdapter.
 
     @Override
     public int getItemViewType(int position) {
-        if (sessionList.size() == 0)  {
+        if (sessionList.size() == 0) {
             return RESULT_NOT_FOUND_VIEW_TYPE;
         }
         return RESULT_FOUND_VIEW_TYPE;
@@ -94,7 +97,7 @@ public class Max3DResultAdapter extends RecyclerView.Adapter<Max3DResultAdapter.
     }
 
     private int getTextViewId(int textViewIndex) {
-        return textViewIdArray[textViewIndex-1];
+        return textViewIdArray[textViewIndex - 1];
     }
 
     private void convertTextViewIdToIdArray() {

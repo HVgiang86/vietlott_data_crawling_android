@@ -14,6 +14,7 @@ public class SessionManager {
     private SessionManager() {
         sessionList = new ArrayList<>();
     }
+
     public static SessionManager getInstance() {
         return INSTANCE;
     }
@@ -39,6 +40,7 @@ public class SessionManager {
             int month = calendar.get(Calendar.MONTH);
             month++;
             int year = calendar.get(Calendar.YEAR);
+
             if (!(month == previousMonth && year == previousYear)) {
                 String thisMonth = month + "/" + year;
                 monthList.add(thisMonth);
@@ -48,9 +50,9 @@ public class SessionManager {
             }
         }
 
-        String[] monthArray = new String[monthList.size()+1];
+        String[] monthArray = new String[monthList.size() + 1];
         for (int i = 0; i < monthList.size(); ++i) {
-            monthArray[i+1] = monthList.get(i);
+            monthArray[i + 1] = monthList.get(i);
         }
         monthArray[0] = "Tất Cả";
         return monthArray;

@@ -3,7 +3,6 @@ package com.example.vietlottdatacrawl.decoration;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,21 +21,15 @@ public class ItemDecoration extends RecyclerView.ItemDecoration {
 
     private final Context context;
     private final int headerOffset;
-    private boolean isSticky;
     private final SectionCallback callback;
     private View headerView = null;
     TextView contentTextView;
     int thisHeaderViewPos = 0;
 
-    public ItemDecoration(Context context, int headerOffset, boolean isSticky, SectionCallback callback) {
+    public ItemDecoration(Context context, int headerOffset, SectionCallback callback) {
         this.context = context;
         this.headerOffset = headerOffset;
-        this.isSticky = isSticky;
         this.callback = callback;
-    }
-
-    public void setSticky(boolean sticky) {
-        isSticky = sticky;
     }
 
     @Override
@@ -76,12 +69,7 @@ public class ItemDecoration extends RecyclerView.ItemDecoration {
 
     private void drawHeader(Canvas c, View child, View headerView) {
         c.save();
-        if(isSticky)
-        {
-            c.translate(0,Math.max(0,child.getTop()-headerView.getHeight()));
-        }else {
-            c.translate(0,child.getTop()-headerView.getHeight());
-        }
+        c.translate(0,child.getTop()-headerView.getHeight());
         headerView.draw(c);
         c.restore();
     }

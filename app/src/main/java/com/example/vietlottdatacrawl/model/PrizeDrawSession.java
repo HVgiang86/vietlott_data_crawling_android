@@ -36,12 +36,14 @@ public class PrizeDrawSession {
         StringBuilder builder = new StringBuilder();
         builder.append(calendar.get(Calendar.DATE));
         builder.append("/");
-        int month = calendar.get(Calendar.MONTH);
-        //month = (month == 0) ? 12 : month;
-        month++;
+
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int year = calendar.get(Calendar.YEAR);
+
         builder.append(month);
         builder.append("/");
-        builder.append(calendar.get(Calendar.YEAR));
+        builder.append(year);
+
         return builder.toString();
     }
 
@@ -71,8 +73,8 @@ public class PrizeDrawSession {
         builder.append(id);
         builder.append(", Prize number: ");
         for (int i = 1; i <= 60; ++i) {
-            builder.append(prizeNumber[i-1]);
-            if (i%3 == 0) {
+            builder.append(prizeNumber[i - 1]);
+            if (i % 3 == 0) {
                 builder.append(" ");
             }
         }
