@@ -2,6 +2,7 @@ package com.example.vietlottdatacrawl.utilities;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Build;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -13,6 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 
 public class DataFileManager {
     private static final String filename = "result.json";
@@ -41,8 +43,15 @@ public class DataFileManager {
 
         try {
             FileInputStream fis = context.openFileInput(filename);
+
+            String charsetName;
+            if (Build.VERSION.SDK_INT <= 19)
+                charsetName = "UTF-8";
+            else
+                charsetName = StandardCharsets.UTF_8.name();
+
             InputStreamReader inputStreamReader =
-                    new InputStreamReader(fis, "UTF-8");
+                    new InputStreamReader(fis, charsetName);
             StringBuilder stringBuilder = new StringBuilder();
             try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
                 String line = reader.readLine();

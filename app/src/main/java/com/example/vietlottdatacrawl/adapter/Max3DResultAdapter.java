@@ -1,7 +1,6 @@
 package com.example.vietlottdatacrawl.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import com.example.vietlottdatacrawl.R;
 import com.example.vietlottdatacrawl.model.PrizeDrawSession;
 
 import java.util.List;
+import java.util.Locale;
 
 public class Max3DResultAdapter extends RecyclerView.Adapter<Max3DResultAdapter.ViewHolder> {
     private List<PrizeDrawSession>  sessionList;
@@ -72,7 +72,8 @@ public class Max3DResultAdapter extends RecyclerView.Adapter<Max3DResultAdapter.
             for (int i = 1; i <= 60; ++i) {
                 int id = getTextViewId(i);
                 TextView textView = holder.view.findViewById(id);
-                textView.setText(prizeNumber[i-1].toString());
+                String numberString = String.format(Locale.US,"%d",prizeNumber[i-1]);
+                textView.setText(numberString);
             }
         }
     }
@@ -90,6 +91,10 @@ public class Max3DResultAdapter extends RecyclerView.Adapter<Max3DResultAdapter.
         if (sessionList.size() == 0)
             return 1;
         return sessionList.size();
+    }
+
+    private int getTextViewId(int textViewIndex) {
+        return textViewIdArray[textViewIndex-1];
     }
 
     private void convertTextViewIdToIdArray() {
@@ -154,9 +159,5 @@ public class Max3DResultAdapter extends RecyclerView.Adapter<Max3DResultAdapter.
         textViewIdArray[i++] = R.id.prize_number_58;
         textViewIdArray[i++] = R.id.prize_number_59;
         textViewIdArray[i] = R.id.prize_number_60;
-    }
-    
-    private int getTextViewId(int textViewIndex) {
-        return textViewIdArray[textViewIndex-1];
     }
 }

@@ -22,21 +22,13 @@ public class SessionManager {
         return sessionList;
     }
 
-    public void addSession(PrizeDrawSession session) {
-        if (session != null)
-            sessionList.add(session);
-    }
-
     public void setSessionList(List<PrizeDrawSession> sessionList) {
         this.sessionList = sessionList;
     }
 
-    public int getSessionIndex(PrizeDrawSession session) {
-        return sessionList.indexOf(session);
-    }
-
     public String[] getMonthArray() {
         List<String> monthList = new ArrayList<>();
+
 
         int previousMonth = 0, previousYear = 0;
         for (PrizeDrawSession session : sessionList) {
@@ -56,8 +48,12 @@ public class SessionManager {
             }
         }
 
-        String[] strings = monthList.toArray(new String[0]);
-        return strings;
+        String[] monthArray = new String[monthList.size()+1];
+        for (int i = 0; i < monthList.size(); ++i) {
+            monthArray[i+1] = monthList.get(i);
+        }
+        monthArray[0] = "Tất Cả";
+        return monthArray;
     }
 
     public List<PrizeDrawSession> getSessionListByMonth(String selectedMonthYear) {
@@ -76,5 +72,19 @@ public class SessionManager {
             }
         }
         return list;
+    }
+
+    public String getMonthYearStringBySession(PrizeDrawSession session) {
+        Date date = session.getDate();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int month = calendar.get(Calendar.MONTH);
+        month++;
+        int year = calendar.get(Calendar.YEAR);
+        return month + "/" + year;
+    }
+
+    public PrizeDrawSession getSessionByIndex(int index) {
+        return sessionList.get(index);
     }
 }

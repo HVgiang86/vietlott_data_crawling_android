@@ -39,14 +39,16 @@ public class VietlottDataCrawler {
     }
 
     public List<PrizeDrawSession> getSessionList(Context context) {
+        long recentTime = System.currentTimeMillis();
+        final long MAX_LOADING_TIME = 60*1000;
+
         Log.d(TAG,"BEGIN CRAWL");
         sessionList.clear();
         PrizeDrawSession recentSession = getSessionInfo(INITIAL_URL);
-        Log.d(TAG,"RECENT SESSION INFO: " + recentSession.toString());
-
         if (recentSession == null) {
             return null;
         }
+        Log.d(TAG,"RECENT SESSION INFO: " + recentSession);
         int recentId = Integer.parseInt(recentSession.getId());
         int recentIdSaved;
 
@@ -65,15 +67,17 @@ public class VietlottDataCrawler {
         sessionList = jsonHelper.getSessionListFromFile();
 
         int id = recentId;
-        while (id > recentIdSaved) {
+        while (id > recentIdSaved && System.currentTimeMillis() < recentTime + MAX_LOADING_TIME) {
             String url = URL_PREFIX
                         + intIdToStringId(id--)
                         + URL_SUFFIX;
 
             PrizeDrawSession session = getSessionInfo(url);
 
-            Log.d(TAG,session.toString());
-            sessionList.add(session);
+            if (session != null) {
+                Log.d(TAG,session.toString());
+                sessionList.add(session);
+            }
         }
 
         jsonHelper.updateJsonData(sessionList);
@@ -85,7 +89,7 @@ public class VietlottDataCrawler {
             Log.d(TAG, "URL: " + url);
             Connection connection = Jsoup.connect(url);
             connection.userAgent(USER_AGENT_STRING);
-            connection.timeout(30*1000);
+            connection.timeout(20*1000);
             Document doc = connection.get();
 
             Element info = doc.getElementsByTag("h5").first();
@@ -121,8 +125,7 @@ public class VietlottDataCrawler {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        PrizeDrawSession session = new PrizeDrawSession(date,id,prize);
-        return session;
+        return new PrizeDrawSession(date,id,prize);
     }
 
     private String intIdToStringId(int id) {

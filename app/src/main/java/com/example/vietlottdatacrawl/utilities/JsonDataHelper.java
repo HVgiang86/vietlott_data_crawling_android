@@ -21,7 +21,6 @@ public class JsonDataHelper {
     public static final String ID_TAG = "id";
     public static final String DATE_TAG = "date";
     public static final String PRIZE_NUMBER_TAG = "number";
-    private final String TAG = "DATA_CRAWLER";
 
     private final Context context;
     private String jsonString;

@@ -2,5 +2,5 @@
 <resources>
     <dimen name="prize_number_ball">25dp</dimen>
     <dimen name="vertical_divider">20dp</dimen>
-
+    <dimen name="header_height">16dp</dimen>
 </resources>

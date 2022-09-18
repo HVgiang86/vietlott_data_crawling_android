@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.MainActivity2">
+    tools:context=".activity.MainActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="16dp"
+        android:layout_height="32dp"
         android:orientation="horizontal"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="16dp"
@@ -17,18 +17,19 @@
         <TextView
             android:id="@+id/month_picker_label"
             android:layout_width="wrap_content"
-            android:layout_height="16dp"
+            android:layout_height="32dp"
             android:text="@string/month_picker_label"
-            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:gravity="center"
             />
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/month_picker_spinner"
             android:layout_width="wrap_content"
-            android:layout_height="16dp"
+            android:layout_height="32dp"
             android:spinnerMode="dialog"
             android:gravity="center"
-
             />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -36,6 +37,6 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 </LinearLayout>

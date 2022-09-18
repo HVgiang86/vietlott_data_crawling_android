@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Vietlott Data Crawl</string>
+    <string name="app_name">Vietlott Max 3D Result</string>
     <string name="crawl_data_tool_label">Phan Tich Web</string>
     <string name="url_input_edit_text_label">URL</string>
     <string name="tag_input_edit_text_label">Tag</string>
