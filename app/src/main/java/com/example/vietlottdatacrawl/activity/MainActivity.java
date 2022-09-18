@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         //add Item decoration for pinned header
-        decoration = new ItemDecoration(this,getResources().getDimensionPixelSize(R.dimen.header_height), callback);
+        decoration = new ItemDecoration(this,getResources().getDimensionPixelSize(R.dimen.header_height), true,callback);
         recyclerView.addItemDecoration(decoration);
     }
 
